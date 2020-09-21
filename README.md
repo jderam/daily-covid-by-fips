@@ -10,7 +10,10 @@ This tool will download and merge data from the following sources:
 * The "fips" field is coerced into string format (to preserve leading zeroes), and "date" is coerced into datetime format.
 * Rows where "fips" is null are filtered out.
 * Only cumulative case and death counts are provided in the file. We calculate daily cases and deaths for a given FIPS code by taking the difference between today's and the previous day's cumulative counts. For the first day reported for a given FIPS code, the daily counts are set to be equal to the cumulative counts.
-* There are 83 FIPS codes representing 11,364 rows in this dataset that do not exist in the Census Population dataset. They collectively represent only 3 "states": Northern Mariana Islands, Puerto Rico, and Virgin Islands. We are moving forward with the assumption it is okay to drop these rows and consider them out of scope.
+* There are 83 FIPS codes representing 11,364 rows (as of 2020-09-20) in this dataset that do not exist in the Census Population dataset.
+They collectively represent only 3 "states": Northern Mariana Islands, Puerto Rico, and Virgin Islands.
+We are moving forward with the assumption it is okay to drop these rows and consider them out of scope.
+They have been persisted in `eda/fips_in_nyt_not_in_pop.csv` to enable futher investigation should the need arise.
 * Finally, we perform a validation to ensure that each combination of FIPS code + date is unique. Since this will ultimately be our lookup key, we need to ensure there is no ambiguity. An error will be thrown if this condition is not met.
 
 ### US Census Bureau Population Estimates by County (2019)
@@ -61,7 +64,7 @@ You can view the validations that were performed by viewing `test/validate_outpu
 ### Final Thoughts
 ##### Design Rationale
 This project ultimately only consists of 3 functions, and they are sort of on the longer side. 
-Yet, it is only setting out to do a very specific job. 
+Yet, it is only setting out to do a very specific job, so we don't want to over-engineer it. 
 Perhaps if there were other jobs doing much of the same stuff, we could look to build something more generalizable. 
 The benefit we get is that this should be very easy to trace through, and if there are any issues, we have some convenient ways of reading in each dataset individually and exploring it to aid in our investigation.
 
