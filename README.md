@@ -40,6 +40,7 @@ The most relevant items are `python=3.7.9` and `pandas=1.1.1`
 I suspect there would be issues if you tried to use a 0.x version of pandas or any python older than 3.6
 
 ##### Build the merged file
+This is where the magic happens!  
 `python covid_data.py`  
 It should take less than 10 seconds to download the source data and merge it.
 
