@@ -35,7 +35,7 @@ They have been persisted in `eda/fips_in_nyt_not_in_pop.csv` to enable futher in
 
 ##### Optional: Create conda environment from the requirements.txt file  
 `conda create --name covid --file requirements.txt`  
-`conda activate covid`
+`conda activate covid`  
 The most relevant items are `python=3.7.9` and `pandas=1.1.1`  
 I suspect there would be issues if you tried to use a 0.x version of pandas or any python older than 3.6
 
