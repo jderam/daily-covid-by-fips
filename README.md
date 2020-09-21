@@ -22,6 +22,7 @@ This tool will download and merge data from the following sources:
 * Rows where SUMLEV="040" are state-level populations, which are not relevant to our purposes. We keep only records where SUMLEV="050" (the county-level records).
 * There are many extraneous fields in this dataset, so we keep only the relevant ones: STATE, COUNTY, STNAME, CTYNAME, POPESTIMATE2019.
 * In order to join this dataset to the NYT dataset, we must create the proper FIPS code from it's components by concatenating STATE and COUNTY codes. This is where the leading zeroes become important.
+* There are 19 FIPS codes in this dataset that do not exist in the NYT COVID dataset. These are lost when the inner join between the two datasets happen, but they are persisted in `eda/fips_in_pop_not_in_nyt.csv` to allow for further investigation if needed.
 * Finally, we perform a validation to ensure that FIPS code is unique in the resulting dataset. If this condition were not true, it could lead to unexpected results. If this requirement is not met, an error will be thrown, allowing for the opportunity to investigate.
 
 ### How to build the file
