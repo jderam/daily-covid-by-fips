@@ -27,6 +27,9 @@ This tool will download and merge data from the following sources:
 
 ### How to build the file
 
+##### Clone this repo
+`git clone https://github.com/jderam/daily-covid-by-fips.git`
+
 ##### Optional: Create conda environment from the requirements.txt file  
 `conda create --name covid --file requirements.txt`  
 `conda activate covid`
