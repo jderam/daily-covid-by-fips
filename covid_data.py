@@ -97,6 +97,17 @@ def cleanup_output(nyt_enriched_df: pd.DataFrame) -> pd.DataFrame:
     return nyt_enriched_df
 
 
+def add_rolling_avg(nyt_enriched_df: pd.DataFrame, days: int = 7) -> pd.DataFrame:
+    """ Adds new columns:
+            avg_daily_cases
+            avg_daily_deaths
+        These are a rolling average of last n days (default of 7)
+    """
+    nyt_enriched_df['avg_daily_cases'] = nyt_enriched_df.groupby('fips')['daily_cases'].transform(lambda x: x.rolling(days).mean())
+    nyt_enriched_df['avg_daily_deaths'] = nyt_enriched_df.groupby('fips')['daily_deaths'].transform(lambda x: x.rolling(days).mean())
+    return nyt_enriched_df
+
+
 if __name__ == "__main__":
     pop_df = fips_populations()
     nyt_df = nyt_covid_data()
@@ -105,5 +116,6 @@ if __name__ == "__main__":
                                    left_on="fips",
                                    right_on="FIPS_CODE")
     nyt_enriched_df = cleanup_output(nyt_enriched_df)
+    nyt_enriched_df = add_rolling_avg(nyt_enriched_df)
     nyt_enriched_df.to_pickle(out_file, compression="bz2")
 
